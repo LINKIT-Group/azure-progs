@@ -1,0 +1,13 @@
+version: '3'
+services:
+  azprogs:
+    environment:
+      - APP_NAME=azprogs
+      - UID=${HOST_UID:-0}
+      - GID=${HOST_GID:-0}
+      - USER=${HOST_USER:-root}
+    build:
+      context: .
+    volumes:
+    - .:/app
+    - ~/.azure:/home/.azure
