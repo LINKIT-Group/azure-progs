@@ -13,14 +13,17 @@ RUN apt-get update --fix-missing \
         gosu \
         git \
         unixodbc-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && python -m pip install \
         requests==2.23.0 \
         numpy==1.19.5 \
         pandas==1.2.1 \
         pylint==2.6.0 \
         pre-commit==2.7.1 \
-        pyodbc==4.0.32
-    
+        pyodbc==4.0.32 \
+        azure-identity==1.6.1 \
+        azure-keyvault-secrets==4.3.0
+
 # Azure CLI
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
@@ -34,8 +37,5 @@ COPY files/entrypoint.sh .
 COPY files/bash_prompt.sh /etc/profile.d/
 COPY files/profile /etc/profile
 
-# temp - delete this group as it also has gid 20 which conflicts on mac
-# note -- this is likely different on other system, should be fixed more elegantly
-RUN groupdel dialout
 WORKDIR /app
 CMD ["/bin/sh", "/entrypoint.sh" ]

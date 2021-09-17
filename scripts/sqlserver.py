@@ -51,6 +51,6 @@ with pyodbc.connect(connection_str, timeout=3) as conn:
     cursor = conn.cursor()
     show_version(cursor)
     # show_dbtables(cursor)
-    # show_table(cursor, '')
+    show_table(cursor, 'bootcamp99_dim_clients')
     # truncate_table(cursor, '[INSERT TABLE NAME]')
     # custom_sql(cursor)
